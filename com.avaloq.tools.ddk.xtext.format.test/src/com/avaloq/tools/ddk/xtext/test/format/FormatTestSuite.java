@@ -25,6 +25,5 @@ import com.avaloq.tools.ddk.xtext.format.validation.FormatValidationTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({FormatFormattingTest.class, FormatValidationTest.class, FormatScopingTest.class, FormatBuilderParticipantTest.class})
 public class FormatTestSuite {
-
+  // dummy change
 }
-
