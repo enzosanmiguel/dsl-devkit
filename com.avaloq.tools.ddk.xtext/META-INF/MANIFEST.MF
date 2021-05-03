@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.xtext
 Bundle-SymbolicName: com.avaloq.tools.ddk.xtext;singleton:=true
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-Vendor: Avaloq Evolution AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -41,4 +41,5 @@ Export-Package: com.avaloq.tools.ddk.caching,
  com.avaloq.tools.ddk.xtext.util,
  com.avaloq.tools.ddk.xtext.validation
 Import-Package: org.apache.log4j
+Automatic-Module-Name: com.avaloq.tools.ddk.xtext
 

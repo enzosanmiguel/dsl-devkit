@@ -19,6 +19,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -71,7 +72,6 @@ import com.avaloq.tools.ddk.xtext.builder.tracing.BuildFlushEvent;
 import com.avaloq.tools.ddk.xtext.builder.tracing.BuildIndexingEvent;
 import com.avaloq.tools.ddk.xtext.builder.tracing.BuildLinkingEvent;
 import com.avaloq.tools.ddk.xtext.builder.tracing.BuildResourceSetClearEvent;
-import com.avaloq.tools.ddk.xtext.builder.tracing.ClusterClosedEvent;
 import com.avaloq.tools.ddk.xtext.builder.tracing.ResourceIndexingEvent;
 import com.avaloq.tools.ddk.xtext.builder.tracing.ResourceLinkingEvent;
 import com.avaloq.tools.ddk.xtext.builder.tracing.ResourceLinkingMemoryEvent;
@@ -142,10 +142,6 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
   @Named(RESOURCELOADER_CROSS_LINKING)
   private IResourceLoader crossLinkingResourceLoader;
 
-  /** Strategy to dynamically adapt cluster sizes. */
-  @Inject
-  private IBuilderResourceLoadStrategy loadingStrategy;
-
   /** Sorter to sort the resources for phase 1. */
   @Inject
   @Named(PHASE_ONE_BUILD_SORTER)
@@ -172,7 +168,13 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
   @Inject(optional = true)
   private IFileSystemAccess fileSystemAccess;
 
-  private final ForkJoinPool binaryStorageExecutor = new ForkJoinPool(4);
+  private final ForkJoinPool.ForkJoinWorkerThreadFactory factory = pool -> {
+    ForkJoinWorkerThread worker = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
+    worker.setName("binary-storage-executor-" + worker.getPoolIndex()); //$NON-NLS-1$
+    return worker;
+  };
+
+  private final ForkJoinPool binaryStorageExecutor = new ForkJoinPool(4, factory, null, false);
 
   /**
    * Handle to the ResourceDescriptionsData we use viewed as a IResourceDescriptions2 (with findReferences()). Parent class does not provide direct access to
@@ -508,7 +510,7 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
         // CHECKSTYLE:CONSTANTS-ON
         final List<Delta> newDeltas = Lists.newArrayListWithExpectedSize(clusterSize);
         final List<Delta> changedDeltas = Lists.newArrayListWithExpectedSize(clusterSize);
-        while (!queue.isEmpty() && loadingStrategy.mayProcessAnotherResource(resourceSet, newDeltas.size())) {
+        while (!queue.isEmpty()) {
           if (subProgress.isCanceled() || !loadOperation.hasNext()) {
             if (!loadOperation.hasNext()) {
               LOGGER.warn(Messages.MonitoredClusteringBuilderState_NO_MORE_RESOURCES);
@@ -635,7 +637,7 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
           buildData.getSourceLevelURICache().getSources().remove(changedURI);
           subProgress.worked(1);
           index++;
-        }
+        } // inner loop end
 
         loadOperation.cancel();
 
@@ -649,15 +651,12 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
         }
 
         if (!queue.isEmpty()) {
-          traceSet.trace(ClusterClosedEvent.class, Long.valueOf(resourceSet.getResources().size()));
           clearResourceSet(resourceSet);
         }
         // TODO flush required here or elsewhere ?
         // flushChanges(newData);
-      }
+      } // outer loop end
     } finally {
-      // Report the current size of the resource set
-      traceSet.trace(ClusterClosedEvent.class, Long.valueOf(resourceSet.getResources().size()));
       if (loadOperation != null) {
         loadOperation.cancel();
       }
@@ -1019,9 +1018,6 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
           monitor.worked(1);
         }
 
-        if (!loadingStrategy.mayProcessAnotherResource(resourceSet, resourceSet.getResources().size())) {
-          clearResourceSet(resourceSet);
-        }
         index++;
       }
     } finally {
@@ -1402,10 +1398,6 @@ public class MonitoredClusteringBuilderState extends ClusteringBuilderState
 
   protected int getClusterSize() {
     return clusterSize;
-  }
-
-  protected IBuilderResourceLoadStrategy getLoadingStrategy() {
-    return loadingStrategy;
   }
 
   protected IResourceLoader getCrossLinkingResourceLoader() {

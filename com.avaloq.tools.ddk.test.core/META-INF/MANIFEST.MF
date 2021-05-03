@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.test.core
 Bundle-SymbolicName: com.avaloq.tools.ddk.test.core;singleton:=true
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-Vendor: Avaloq Evolution AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -22,3 +22,4 @@ Export-Package: com.avaloq.tools.ddk.test.core,
  com.avaloq.tools.ddk.test.core.mock,
  com.avaloq.tools.ddk.test.core.util
 Import-Package: org.apache.log4j
+Automatic-Module-Name: com.avaloq.tools.ddk.test.core

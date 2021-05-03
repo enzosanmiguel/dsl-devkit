@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.check.test.runtime.ui
 Bundle-Vendor: Avaloq Evolution AG
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-SymbolicName: com.avaloq.tools.ddk.check.test.runtime.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.avaloq.tools.ddk.check.test.runtime;visibility:=reexport,
@@ -27,3 +27,4 @@ Export-Package: com.avaloq.tools.ddk.check.ui.contentassist.antlr,
  com.avaloq.tools.ddk.check.ui.quickfix,
  com.avaloq.tools.ddk.check.ui.contentassist.antlr.internal
 Bundle-Activator: com.avaloq.tools.ddk.check.ui.internal.TestLanguageActivator
+Automatic-Module-Name: com.avaloq.tools.ddk.check.test.runtime.ui

@@ -26,17 +26,7 @@ import com.avaloq.tools.ddk.check.CheckInjectorProvider;
  */
 @InjectWith(CheckInjectorProvider.class)
 @RunWith(XtextRunner.class)
-@SuppressWarnings("deprecation")
 public class BugDsl27 extends AbstractCheckGenerationTestCase {
-
-  /**
-   * Tests that the java compiler does fail given invalid input.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testJavaCompiler() {
-    String code = "public class C { public D foo() {} }"; // Should fail compilation since class D unknown.
-    getJavaCompiler().compileToClass("C", code);
-  }
 
   /**
    * Tests that our test source compiles fine.

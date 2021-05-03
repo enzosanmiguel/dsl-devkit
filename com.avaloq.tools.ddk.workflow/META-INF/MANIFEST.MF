@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.workflow
 Bundle-SymbolicName: com.avaloq.tools.ddk.workflow
-Bundle-Version: 5.3.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-Vendor: Avaloq Evolution AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.avaloq.tools.ddk.xtext,
@@ -31,5 +31,5 @@ Require-Bundle: com.avaloq.tools.ddk.xtext,
  org.eclipse.xtext.ecore,
  org.eclipse.xtext.generator,
  org.eclipse.xtext.ui,
- org.eclipse.xtext.xbase.lib,
- org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
+ org.eclipse.xtext.xbase.lib
+Automatic-Module-Name: com.avaloq.tools.ddk.workflow

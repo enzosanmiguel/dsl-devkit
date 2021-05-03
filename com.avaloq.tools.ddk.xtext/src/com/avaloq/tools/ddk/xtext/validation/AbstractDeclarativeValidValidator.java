@@ -73,20 +73,31 @@ public abstract class AbstractDeclarativeValidValidator extends AbstractDeclarat
   }
 
   /**
+   * Returns true if tracing is enabled.
+   *
+   * @return true if tracing is enabled
+   */
+  protected boolean isTraceEnabled() {
+    return traceSet.isEnabled(ResourceValidationRuleSummaryEvent.class);
+  }
+
+  /**
    * To be called by subclasses to indicate that a given validation rule is about to be executed and that its execution time should be traced.
    *
    * @param rule
    *          rule to be executed
-   * @see #traceEnd(String)
+   * @return A collector if if tracing is enabled or {@code null} otherwise
    */
-  protected void traceStart(final String rule) {
+  protected ResourceValidationRuleSummaryEvent.Collector traceStart(final String rule) {
     if (traceSet.isEnabled(ResourceValidationRuleSummaryEvent.class)) {
       EObject object = getCurrentObject();
       ResourceValidationRuleSummaryEvent.Collector collector = getTraceCollector(object);
       if (collector != null) {
         collector.ruleStarted(rule, object);
+        return collector;
       }
     }
+    return null;
   }
 
   /**
@@ -96,6 +107,7 @@ public abstract class AbstractDeclarativeValidValidator extends AbstractDeclarat
    *          executed rule
    * @see #traceStart(String)
    */
+  @Deprecated
   protected void traceEnd(final String rule) {
     if (traceSet.isEnabled(ResourceValidationRuleSummaryEvent.class)) {
       EObject object = getCurrentObject();
@@ -104,6 +116,19 @@ public abstract class AbstractDeclarativeValidValidator extends AbstractDeclarat
         collector.ruleEnded(rule, object);
       }
     }
+  }
+
+  /**
+   * To be called by subclasses after having executed a rule previously registered with {@link #traceStart(String)}.
+   *
+   * @param collector
+   *          the collector returned by traceStart, must not be {@code null}
+   * @param rule
+   *          executed rule
+   * @see #traceStart(String)
+   */
+  protected void traceEnd(final ResourceValidationRuleSummaryEvent.Collector collector, final String rule) {
+    collector.ruleEnded(rule, null);
   }
 
   /**

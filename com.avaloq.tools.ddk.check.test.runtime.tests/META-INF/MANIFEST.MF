@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.check.test.runtime.tests
 Bundle-Vendor: Avaloq Evolution AG
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-SymbolicName: com.avaloq.tools.ddk.check.test.runtime.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.avaloq.tools.ddk.check.runtime.core,
@@ -19,8 +19,7 @@ Require-Bundle: com.avaloq.tools.ddk.check.runtime.core,
  org.eclipse.ui.workbench;resolution:=optional,
  org.eclipse.xtend.lib,
  org.eclipse.xtext.xbase.lib,
- org.apache.log4j,
- org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
+ org.apache.log4j
 Import-Package: org.junit.runner;version="4.5.0",
  org.junit.runner.manipulation;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",
@@ -31,3 +30,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.avaloq.tools.ddk.check.test.runtime,
  com.avaloq.tools.ddk.check.test.runtime.tests,
  com.avaloq.tools.ddk.check
+Automatic-Module-Name: com.avaloq.tools.ddk.check.test.runtime.tests

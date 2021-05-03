@@ -7,7 +7,7 @@
 
   <groupId>com.avaloq.tools.ddk</groupId>
   <artifactId>ddk-parent</artifactId>
-  <version>5.1.0-SNAPSHOT</version>
+  <version>7.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -50,14 +50,10 @@
     <checkstyle.version>6.19</checkstyle.version>
     <clean.version>2.4.1</clean.version>
     <deploy.version>2.8.2</deploy.version>
-    <dita.version>1.0-beta-2</dita.version>
     <findbugs.plugin.version>3.0.4</findbugs.plugin.version><!-- Maven plug-in 3.0.4 uses FindBugs 3.0.1 -->
-    <jxr.version>2.2</jxr.version>
-    <maven.version>3.0</maven.version>
     <pmd.plugin.version>3.6</pmd.plugin.version><!-- Maven plug-in 3.6 uses PMD 5.3.5 -->
-    <resources.version>2.4.3</resources.version>
-    <tycho.version>0.23.1</tycho.version>
-    <xtend.version>2.14.0</xtend.version>
+    <tycho.version>1.4.0</tycho.version>
+    <xtend.version>2.19.0</xtend.version>
   </properties>
 
   <modules>
@@ -185,6 +181,7 @@
         <configuration>
           <showDeprecation>${compiler.showWarnings}</showDeprecation>
           <showWarnings>${compiler.showWarnings}</showWarnings>
+          <useProjectSettings>false</useProjectSettings>
           <source>1.8</source>
           <target>1.8</target>
           <!-- Disable 'Unsupported @SuppressWarnings' warnings More information
@@ -208,30 +205,6 @@
         <groupId>org.eclipse.xtend</groupId>
         <artifactId>xtend-maven-plugin</artifactId>
         <version>${xtend.version}</version>
-        <dependencies>
-          <!-- workaround for issue https://github.com/eclipse/xtext/issues/1231  -->
-          <!-- Remove with upgrade to Xtext 2.15 -->
-          <dependency>
-            <groupId>org.eclipse.jdt</groupId>
-            <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>3.13.102</version>
-          </dependency>
-          <dependency>
-            <groupId>org.eclipse.jdt</groupId>
-            <artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-            <version>1.3.110</version>
-          </dependency>
-          <dependency>
-            <groupId>org.eclipse.jdt</groupId>
-            <artifactId>org.eclipse.jdt.compiler.tool</artifactId>
-            <version>1.2.101</version>
-          </dependency>
-          <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>org.eclipse.emf.codegen</artifactId>
-            <version>2.11.0</version>
-          </dependency>
-        </dependencies>
         <executions>
           <execution>
             <id>xtend-generate</id>
@@ -253,17 +226,6 @@
         <version>${tycho.version}</version>
         <configuration>
           <skip>true</skip> <!-- activated only in/for com.avaloq.tools.ddk.xtext.test bundle -->
-          <testClass>${test.testClass}</testClass>
-          <failIfNoTests>false</failIfNoTests>
-          <useUIThread>false</useUIThread>
-          <useUIHarness>true</useUIHarness>
-          <forkedProcessTimeoutInSeconds>${test.timeout}</forkedProcessTimeoutInSeconds>
-          <argLine>-Dlogback.configurationFile="${runtime.logbackConfig}" ${test.javaOptions}</argLine>
-          <appArgLine>-pluginCustomization ${runtime.pluginCustomization}</appArgLine>
-          <product>${runtime.product}</product>
-          <systemProperties>
-            <tychotest>true</tychotest>
-          </systemProperties>
         </configuration>
       </plugin>
       <plugin>

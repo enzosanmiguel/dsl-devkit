@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.xtext.valid.ui
 Bundle-SymbolicName: com.avaloq.tools.ddk.xtext.valid.ui;singleton:=true
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-Vendor: Avaloq Evolution AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -24,3 +24,4 @@ Export-Package: com.avaloq.tools.ddk.xtext.valid.ui.contentassist.antlr,
 Import-Package: org.apache.log4j
 Bundle-Activator: com.avaloq.tools.ddk.xtext.valid.ui.internal.ValidActivator
 Eclipse-ExtensibleAPI: true
+Automatic-Module-Name: com.avaloq.tools.ddk.xtext.valid.ui

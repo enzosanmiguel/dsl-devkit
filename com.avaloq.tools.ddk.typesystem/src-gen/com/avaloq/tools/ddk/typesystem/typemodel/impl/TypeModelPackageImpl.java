@@ -5,6 +5,7 @@ package com.avaloq.tools.ddk.typesystem.typemodel.impl;
 import com.avaloq.tools.ddk.typesystem.typemodel.Callable;
 import com.avaloq.tools.ddk.typesystem.typemodel.IActualParameter;
 import com.avaloq.tools.ddk.typesystem.typemodel.ICallable;
+import com.avaloq.tools.ddk.typesystem.typemodel.ICaseSensitiveNamedElement;
 import com.avaloq.tools.ddk.typesystem.typemodel.IExpression;
 import com.avaloq.tools.ddk.typesystem.typemodel.IFormalParameter;
 import com.avaloq.tools.ddk.typesystem.typemodel.IFunction;
@@ -69,6 +70,13 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 	 * @generated
 	 */
 	private EClass namedElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iCaseSensitiveNamedElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -190,7 +198,7 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link TypeModelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -205,7 +213,8 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 		if (isInited) return (TypeModelPackage)EPackage.Registry.INSTANCE.getEPackage(TypeModelPackage.eNS_URI);
 
 		// Obtain or create and register package
-		TypeModelPackageImpl theTypeModelPackage = (TypeModelPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof TypeModelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new TypeModelPackageImpl());
+		Object registeredTypeModelPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		TypeModelPackageImpl theTypeModelPackage = registeredTypeModelPackage instanceof TypeModelPackageImpl ? (TypeModelPackageImpl)registeredTypeModelPackage : new TypeModelPackageImpl();
 
 		isInited = true;
 
@@ -218,7 +227,6 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 		// Mark meta-data to indicate it can't be changed
 		theTypeModelPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(TypeModelPackage.eNS_URI, theTypeModelPackage);
 		return theTypeModelPackage;
@@ -272,6 +280,16 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 	public EClass getNamedElement()
 	{
 		return namedElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getICaseSensitiveNamedElement()
+	{
+		return iCaseSensitiveNamedElementEClass;
 	}
 
 	/**
@@ -444,6 +462,8 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 
 		namedElementEClass = createEClass(NAMED_ELEMENT);
 
+		iCaseSensitiveNamedElementEClass = createEClass(ICASE_SENSITIVE_NAMED_ELEMENT);
+
 		iNamedTypeEClass = createEClass(INAMED_TYPE);
 
 		namedTypeEClass = createEClass(NAMED_TYPE);
@@ -534,6 +554,8 @@ public class TypeModelPackageImpl extends EPackageImpl implements TypeModelPacka
 		addEOperation(overrideDeclarationEClass, ecorePackage.getEBoolean(), "isOverride", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(iCaseSensitiveNamedElementEClass, ICaseSensitiveNamedElement.class, "ICaseSensitiveNamedElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(iNamedTypeEClass, INamedType.class, "INamedType", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

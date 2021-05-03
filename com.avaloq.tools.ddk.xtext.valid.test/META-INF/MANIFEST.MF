@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.avaloq.tools.ddk.xtext.valid.test
 Bundle-SymbolicName: com.avaloq.tools.ddk.xtext.valid.test;singleton:=true
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 7.3.0.qualifier
 Bundle-Vendor: Avaloq Evolution AG
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -15,3 +15,4 @@ Require-Bundle: com.avaloq.tools.ddk.xtext.test.core,
  org.eclipse.emf.ecore;visibility:=reexport,
  com.avaloq.tools.ddk.xtext
 Export-Package: com.avaloq.tools.ddk.xtext.test.valid
+Automatic-Module-Name: com.avaloq.tools.ddk.xtext.valid.test

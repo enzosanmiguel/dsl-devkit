@@ -100,6 +100,11 @@ public class TypeModelAdapterFactory extends AdapterFactoryImpl
 				return createNamedElementAdapter();
 			}
 			@Override
+			public Adapter caseICaseSensitiveNamedElement(ICaseSensitiveNamedElement object)
+			{
+				return createICaseSensitiveNamedElementAdapter();
+			}
+			@Override
 			public Adapter caseINamedType(INamedType object)
 			{
 				return createINamedTypeAdapter();
@@ -262,6 +267,21 @@ public class TypeModelAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link com.avaloq.tools.ddk.typesystem.typemodel.ICaseSensitiveNamedElement <em>ICase Sensitive Named Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.avaloq.tools.ddk.typesystem.typemodel.ICaseSensitiveNamedElement
+	 * @generated
+	 */
+	public Adapter createICaseSensitiveNamedElementAdapter()
+	{
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link com.avaloq.tools.ddk.typesystem.typemodel.INamedType <em>INamed Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -382,13 +402,13 @@ public class TypeModelAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Iterable<? extends com.avaloq.tools.ddk.typesystem.typemodel.IFormalParameter> <em>IFormal Parameter List</em>}'.
+	 * Creates a new adapter for an object of class '{@link Iterable <em>IFormal Parameter List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Iterable<? extends com.avaloq.tools.ddk.typesystem.typemodel.IFormalParameter>
+	 * @see Iterable
 	 * @generated
 	 */
 	public Adapter createIFormalParameterListAdapter()
